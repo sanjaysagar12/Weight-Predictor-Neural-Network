@@ -6,9 +6,9 @@ A web application that uses a neural network model to predict weight based on he
 
 ```
 /ann
-  ├── ai.py               # Original neural network implementation
+  ├── ai.py               # Neural network class implementation
   ├── app.py              # Flask application
-  ├── save_model.py       # Script to save model weights
+  ├── save_model.py       # Script to save model weights with CLI arguments
   ├── requirements.txt    # Python dependencies
   ├── models/             # Directory for saved model weights (created by save_model.py)
   └── templates/
@@ -24,7 +24,7 @@ A web application that uses a neural network model to predict weight based on he
    ```
 3. Save the trained model:
    ```
-   python save_model.py
+   python save_model.py train
    ```
 4. Run the Flask application:
    ```
@@ -34,6 +34,39 @@ A web application that uses a neural network model to predict weight based on he
    ```
    http://127.0.0.1:5000/
    ```
+
+## Command-Line Arguments
+
+The save_model.py script now supports command-line arguments for easier model training and testing:
+
+### Commands
+- `train`: Train and save a new model
+- `test`: Load and test an existing model
+- `both`: Train a new model and then test it
+
+### Options
+- `--epochs`: Number of training epochs (default: 1000)
+- `--hidden`: Number of hidden neurons (default: 3)
+- `--lr`: Learning rate (default: 0.01)
+- `--data`: Path to data file (default: height_weight.csv)
+
+### Examples
+```bash
+# Train with default parameters
+python save_model.py train
+
+# Train with custom parameters
+python save_model.py train --epochs 2000 --hidden 5 --lr 0.005
+
+# Test an existing model
+python save_model.py test
+
+# Train and then test in one command
+python save_model.py both --epochs 1500 --hidden 4
+
+# Use a different data file
+python save_model.py train --data custom_data.csv
+```
 
 ## API Endpoints
 
@@ -48,7 +81,8 @@ A web application that uses a neural network model to predict weight based on he
 
 - Backend: Flask (Python)
 - Frontend: HTML, Tailwind CSS, jQuery
-- Machine Learning: NumPy neural network implementation
+- Machine Learning: Object-oriented neural network implementation
+- User Interface: Height input in CM, weight output in KG (with conversions)
 
 ## Extending the Project
 
